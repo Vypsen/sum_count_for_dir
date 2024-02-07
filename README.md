@@ -2,4 +2,4 @@
 
 ## для своего удобства php в докере 
 ## docker-compose up --build  -d
-## docker exec -it count php -f index.php command_tests/<dir>
+## docker exec -it count php -f index.php ...
