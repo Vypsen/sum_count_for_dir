@@ -1,6 +1,6 @@
 <?php
 
-function getSumCount($dir)
+function getSumCountFiles($dir)
 {
     $sum = 0;
 
@@ -9,11 +9,11 @@ function getSumCount($dir)
         $path = $dir . '/' . $file;
 
         if (is_dir($path)) {
-            $sum += getSumCount($path);
-        } else if (is_file($path) && (pathinfo($path)['filename'] === 'count')) {
+            $sum += getSumCountFiles($path);
+        } else if (strtolower($file) == 'count') {  // смотрел в count без расширения, так как не было указано
             $countFile = file($path);
             if (!empty($countFile)) {
-                $sum += array_sum(explode(' ', $countFile[0]));
+                $sum += array_sum(explode(' ', $countFile[0])); // считал числа через пробел друг от друга
             }
         }
     }
@@ -26,4 +26,4 @@ if (!dir($dir = $argv[1])) exit("Ошибка в пути к файлу \n");
 
 echo "Посчитаем сумму чисел только в файлах count: \n";
 
-echo getSumCount($dir) . "\n";
+echo getSumCountFiles($dir) . "\n";
